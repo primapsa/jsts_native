@@ -1,7 +1,7 @@
-import {moveUser, upgradeLaptop, UserType, UserWithLaptop} from "./1";
+import {addBooks, moveUser, upgradeLaptop, UserBooks, UserType, UserWithLaptop} from "./1";
 
 test('change address', () => {
-    let user: UserWithLaptop = {
+    let user: UserWithLaptop & UserBooks = {
         name: 'Ivan',
         hair: 30,
         address: {
@@ -10,7 +10,8 @@ test('change address', () => {
         },
         laptop: {
             title: 'Zenbook'
-        }
+        },
+        books: ['js','ts']
     }
     const movedUser = moveUser(user, 'Kiev');
     expect(user).toBe(movedUser)
@@ -36,4 +37,24 @@ test('change laptop', () => {
     expect(user.address).toBe(movedUser.address)
     expect(user.laptop).not.toBe(movedUser.laptop)
     expect(movedUser.laptop.title).toBe('Mac')
+})
+test('add books', () => {
+    let user: UserWithLaptop & UserBooks = {
+        name: 'Ivan',
+        hair: 30,
+        address: {
+            city: 'Minsk',
+            zip: 2210
+        },
+        laptop: {
+            title: 'Zenbook'
+        },
+        books: ['js','ts']
+    }
+    const booked = addBooks(user, ['css','html']);
+    expect(user).not.toBe(booked)
+    expect(user.address).toBe(booked.address)
+    expect(user.laptop).toBe(booked.laptop)
+    expect(booked.books[2]).toBe('css')
+    expect(booked.books[3]).toBe('html')
 })

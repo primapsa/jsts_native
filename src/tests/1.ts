@@ -13,7 +13,9 @@ export type LaptopType = {
 export type UserWithLaptop = UserType & {
     laptop: LaptopType
 }
-
+export type UserBooks = {
+    books: string[]
+}
 
 
 export function moveUser(u: UserWithLaptop, city: string):UserWithLaptop {
@@ -22,5 +24,9 @@ export function moveUser(u: UserWithLaptop, city: string):UserWithLaptop {
 }
 export function upgradeLaptop(u: UserWithLaptop, laptop: string):UserWithLaptop {
     return {...u, laptop: {...u.laptop, title: laptop }}
+
+}
+export function addBooks(u: UserWithLaptop & UserBooks, books: string[]):UserWithLaptop & UserBooks {
+    return {...u, books: [...u.books, ...books] }
 
 }
