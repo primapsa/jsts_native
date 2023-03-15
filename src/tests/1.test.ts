@@ -1,4 +1,4 @@
-import {addBooks, moveUser, upgradeLaptop, UserBooks, UserType, UserWithLaptop} from "./1";
+import {addBooks, moveUser, updateBooks, upgradeLaptop, UserBooks, UserType, UserWithLaptop} from "./1";
 
 test('change address', () => {
     let user: UserWithLaptop & UserBooks = {
@@ -57,4 +57,21 @@ test('add books', () => {
     expect(user.laptop).toBe(booked.laptop)
     expect(booked.books[2]).toBe('css')
     expect(booked.books[3]).toBe('html')
+})
+test('update books', () => {
+    let user: UserWithLaptop & UserBooks = {
+        name: 'Ivan',
+        hair: 30,
+        address: {
+            city: 'Minsk',
+            zip: 2210
+        },
+        laptop: {
+            title: 'Zenbook'
+        },
+        books: ['js','ts']
+    }
+    const booked = updateBooks(user, 'ts', 'tsx');
+    expect(booked.books[1]).toBe('tsx')
+
 })

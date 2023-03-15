@@ -16,7 +16,7 @@ export type UserWithLaptop = UserType & {
 export type UserBooks = {
     books: string[]
 }
-
+export type UserWithBooks = UserWithLaptop & UserBooks
 
 export function moveUser(u: UserWithLaptop, city: string):UserWithLaptop {
     return {...u, address: {...u.address, city: city }}
@@ -28,5 +28,9 @@ export function upgradeLaptop(u: UserWithLaptop, laptop: string):UserWithLaptop 
 }
 export function addBooks(u: UserWithLaptop & UserBooks, books: string[]):UserWithLaptop & UserBooks {
     return {...u, books: [...u.books, ...books] }
+
+}
+export function updateBooks(u: UserWithLaptop & UserBooks, replacement: string, repalce: string ) {
+    return {...u, books: u.books.map(e => e === replacement ? repalce : e) }
 
 }
