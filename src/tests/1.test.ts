@@ -1,4 +1,14 @@
-import {addBooks, moveUser, updateBooks, upgradeLaptop, UserBooks, UserType, UserWithLaptop} from "./1";
+import {
+    addBooks,
+    CompanyType,
+    moveUser,
+    removeBook,
+    updateBooks, updateCompany,
+    upgradeLaptop,
+    UserBooks,
+    UserType,
+    UserWithLaptop
+} from "./1";
 
 test('change address', () => {
     let user: UserWithLaptop & UserBooks = {
@@ -19,7 +29,6 @@ test('change address', () => {
     expect(user.laptop).toBe(movedUser.laptop)
     expect(movedUser.address.city).toBe('Kiev')
 })
-
 test('change laptop', () => {
     let user: UserWithLaptop = {
         name: 'Ivan',
@@ -73,5 +82,41 @@ test('update books', () => {
     }
     const booked = updateBooks(user, 'ts', 'tsx');
     expect(booked.books[1]).toBe('tsx')
+
+})
+test('remove book', () => {
+    let user: UserWithLaptop & UserBooks = {
+        name: 'Ivan',
+        hair: 30,
+        address: {
+            city: 'Minsk',
+            zip: 2210
+        },
+        laptop: {
+            title: 'Zenbook'
+        },
+        books: ['js','ts']
+    }
+    const booked = removeBook(user, 'ts');
+    expect(booked.books.length).toBe(1)
+    expect(booked.books[1]).toBe(undefined)
+
+})
+test('update company', () => {
+    let user: UserWithLaptop & CompanyType = {
+        name: 'Ivan',
+        hair: 30,
+        address: {
+            city: 'Minsk',
+            zip: 2210
+        },
+        laptop: {
+            title: 'Zenbook'
+        },
+        companies: [{id: 1, title: 'Epa'}, {id:2, title: 'Bla'}]
+    }
+    const booked = updateCompany(user, 1, 'Epam');
+    expect(booked.companies).not.toBe(user.companies)
+    expect(booked.companies[0].title).toBe('Epam')
 
 })
