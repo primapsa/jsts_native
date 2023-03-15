@@ -20,3 +20,7 @@ export function moveUser(u: UserWithLaptop, city: string):UserWithLaptop {
     return {...u, address: {...u.address, city: city }}
 
 }
+export function upgradeLaptop(u: UserWithLaptop, laptop: string):UserWithLaptop {
+    return {...u, laptop: {...u.laptop, title: laptop }}
+
+}
